@@ -1,0 +1,34 @@
+<h1>Listing pasiens</h1>
+
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>Idpasien</th>
+    <th>Namapasien</th>
+    <th>Pangkatjabatan</th>
+    <th>Jeniskelamin</th>
+    <th>Idsample</th>
+    <th>Tanggal</th>
+    <th>Ruangan</th>
+    <th>Pemeriksa</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @get_pasiens.each do |pasien| %>
+  <tr>
+    <td><%= pasien.id_pasien %></td>
+    <td><%= pasien.nama_pasien %></td>
+    <td><%= pasien.pangkat_jabatan %></td>
+    <td><%= pasien.jenis_kelamin %></td>
+    <td><%= pasien.id_sample %></td>
+    <td><%= pasien.tanggal %></td>
+    <td><%= pasien.ruangan %></td>
+    <td><%= pasien.pemeriksa %></td>
+    <td><%= link_to 'Show', pasien %></td>
+    <td><%= link_to 'Edit', edit_pasien_path(pasien) %></td>
+    <td><%= link_to 'Destroy', pasien, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<br />

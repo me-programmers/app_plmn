@@ -1,0 +1,14 @@
+<h1>Hi, total data: <%= @get_client %></h1>
+
+<a id="print-btn">Print</a>
+<div class="print-this">Print me please!</div>
+
+<script>
+    $(document).ready(function(){
+        $("#print-btn").click(function(){     
+            var options = { mode : "iframe", popClose : close, extraCss : "" };
+            $(".print-this").printArea( options );
+        });        
+    });
+
+</script>

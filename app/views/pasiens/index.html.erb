@@ -1,0 +1,48 @@
+<%= form_tag pasiens_path, :method => 'get' do %>
+    <div class="row-fluid">
+        <div class="span3"><%= text_field_tag :search, params[:search] %></div>
+        <div class="span9"><%= submit_tag "Pilih Tanggal", :name => nil, :class=>"btn btn-warning" %></div>
+    </div>
+<% end %>
+
+<h4>Daftar Pasien (<%= @pasiens.length %>)</h4>
+
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>Id Pasien</th>
+    <th>Nama Pasien</th>
+    <th>Pangkat Jabatan</th>
+    <th>Jenis Kelamin</th>
+    <th>Id Sample</th>
+    <th>Tanggal</th>
+    <th>Ruangan</th>
+    <th>Pemeriksa</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pasiens.each do |pasien| %>
+  <tr>
+    <td><%= pasien.id_pasien %></td>
+    <td><%= pasien.nama_pasien %></td>
+    <td><%= pasien.pangkat_jabatan %></td>
+    <td><%= pasien.jenis_kelamin %></td>
+    <td><%= pasien.id_sample %></td>
+    <td><%= pasien.tanggal %></td>
+    <td><%= pasien.ruangan %></td>
+    <td><%= pasien.pemeriksa %></td>
+    <td><%= link_to 'Show', pasien %></td>
+    <td><%= link_to 'Edit', edit_pasien_path(pasien) %></td>
+    <td><%= link_to 'Destroy', pasien, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+
+<script>
+    $(document).ready(function(){
+        $("#search").datepicker();
+    });
+
+</script>
