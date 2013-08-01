@@ -33,7 +33,7 @@
     <td><%= pasien.ruangan %></td>
     <td><%= pasien.pemeriksa %></td>
     <td><%= link_to 'Show', pasien %></td>
-    <td><%= link_to 'Edit', edit_pasien_path(pasien) %></td>
+    <td><%= link_to 'Print', pasien_path(pasien.id, :format => 'pdf') %></td>
     <td><%= link_to 'Destroy', pasien, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>

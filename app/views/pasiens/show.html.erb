@@ -1,27 +1,31 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Idpasien:</b>
+  <b>Id Pasien:</b>
   <%= @pasien.id_pasien %>
 </p>
 
 <p>
-  <b>Namapasien:</b>
+  <b>Nama Pasien:</b>
   <%= @pasien.nama_pasien %>
 </p>
 
 <p>
-  <b>Pangkatjabatan:</b>
+  <b>Pangkat Jabatan:</b>
   <%= @pasien.pangkat_jabatan %>
 </p>
 
 <p>
-  <b>Jeniskelamin:</b>
-  <%= @pasien.jenis_kelamin %>
+  <b>Jenis Kelamin:</b>
+  <% case @pasien.jenis_kelamin 
+       when 1 %>Perempuan
+  <%   when 2 %>Laki-laki
+  <%   when 3 %>Bayi
+  <% end %>
 </p>
 
 <p>
-  <b>Idsample:</b>
+  <b>Id Sample:</b>
   <%= @pasien.id_sample %>
 </p>
 
@@ -45,11 +49,30 @@
   <%= @pasien.komentar %>
 </p>
 
-<p>
-  <b>Idechantillon:</b>
-  <%= @pasien.id_echantillon %>
-</p>
+<h2>Hasil</h2>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>Item </th>
+    <th>Hasil </th>
+    <th>Satuan</th>
+    <th>Normal pl</th>
+    <th>Normal ph</th>
+    <th>Normal ll</th>
+    <th>Normal lh</th>
+  </tr>
 
+<% @hasil.each do |hasil| %>
+  <tr>
+    <td><%= hasil.item_pemeriksaan %></td>
+    <td><%= number_with_precision(hasil.hasil_pemeriksaan, precision: hasil.posisi_desimal) %></td>
+    <td><%= hasil.satuan %></td>
+    <td><%= hasil.normal_pl %></td>
+    <td><%= hasil.normal_ph %></td>
+    <td><%= hasil.normal_ll %></td>
+    <td><%= hasil.normal_lh %></td>
+  </tr>
+<% end %>
+</table>
 
 <%= link_to 'Edit', edit_pasien_path(@pasien) %> |
 <%= link_to 'Back', pasiens_path %>

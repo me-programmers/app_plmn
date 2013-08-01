@@ -1,6 +1,13 @@
 AppPlmn::Application.routes.draw do
-  resources :pasiens
 
+  resources :widgets, only: [:index]
+  
+  resources :pasiens do
+    #member do
+    #  get 'print'
+    #end
+    resources :hasils
+  end
 
   resources :clients
 

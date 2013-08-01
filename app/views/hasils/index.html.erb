@@ -1,0 +1,43 @@
+<h1>Listing hasils</h1>
+
+<table>
+  <tr>
+    <th>Item pemeriksaan</th>
+    <th>Hasil pemeriksaan</th>
+    <th>Satuan</th>
+    <th>An echantillon</th>
+    <th>Normal pl</th>
+    <th>Normal ph</th>
+    <th>Normal ll</th>
+    <th>Normal lh</th>
+    <th>Faktor pengali</th>
+    <th>Posisi desimal</th>
+    <th>Pasien</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hasils.each do |hasil| %>
+  <tr>
+    <td><%= hasil.item_pemeriksaan %></td>
+    <td><%= hasil.hasil_pemeriksaan %></td>
+    <td><%= hasil.satuan %></td>
+    <td><%= hasil.an_echantillon %></td>
+    <td><%= hasil.normal_pl %></td>
+    <td><%= hasil.normal_ph %></td>
+    <td><%= hasil.normal_ll %></td>
+    <td><%= hasil.normal_lh %></td>
+    <td><%= hasil.faktor_pengali %></td>
+    <td><%= hasil.posisi_desimal %></td>
+    <td><%= hasil.pasien %></td>
+    <td><%= link_to 'Show', hasil %></td>
+    <td><%= link_to 'Edit', edit_hasil_path(hasil) %></td>
+    <td><%= link_to 'Destroy', hasil, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hasil', new_hasil_path %>

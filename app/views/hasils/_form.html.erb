@@ -1,0 +1,21 @@
+<%= simple_form_for(@hasil) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :item_pemeriksaan %>
+    <%= f.input :hasil_pemeriksaan %>
+    <%= f.input :satuan %>
+    <%= f.input :an_echantillon %>
+    <%= f.input :normal_pl %>
+    <%= f.input :normal_ph %>
+    <%= f.input :normal_ll %>
+    <%= f.input :normal_lh %>
+    <%= f.input :faktor_pengali %>
+    <%= f.input :posisi_desimal %>
+    <%= f.association :pasien %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

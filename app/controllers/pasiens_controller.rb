@@ -2,15 +2,12 @@ class PasiensController < ApplicationController
   # GET /pasiens
   # GET /pasiens.json
   
-  def search
-
-  end
-
   def index    
     if params[:search]
       @pasiens = Pasien.search(params[:search]).order("created_at DESC")
     else
-      @pasiens = Pasien.where("tanggal = '#{Date.today}'").order("created_at DESC")
+      #@pasiens = Pasien.where("tanggal = '#{Date.today}'").order("created_at DESC")
+      @pasiens = Pasien.all
     end
     
     respond_to do |format|
@@ -23,10 +20,16 @@ class PasiensController < ApplicationController
   # GET /pasiens/1.json
   def show
     @pasien = Pasien.find(params[:id])
+    @hasil = Hasil.where("an_echantillon= '#{@pasien.id_echantillon}'")
 
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @pasien }
+      format.pdf do
+        pdf = PasienPdf.new(@pasien)
+        send_data pdf.render, :filename => 
+        "invoice_#{@pasien.created_at.strftime("%d/%m/%Y")}.pdf", :type => "application/pdf", :disposition => "inline"
+      end
     end
   end
 
