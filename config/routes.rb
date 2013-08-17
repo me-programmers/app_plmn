@@ -1,5 +1,23 @@
 AppPlmn::Application.routes.draw do
 
+  resources :hasil3s
+
+
+  resources :pasien3s
+
+
+  resources :lab2s
+
+
+  resources :hasil2s do
+    member do
+      get "addnew"
+    end
+  end
+
+
+  resources :pasien2s 
+
   resources :widgets, only: [:index]
   
   resources :pasiens do
@@ -12,6 +30,8 @@ AppPlmn::Application.routes.draw do
   resources :clients
 
   get "display/satu"
+  get "display/import2"
+  get "display/import3"
   get "main_page/homeforpasien"
   get "main_page/homeforpasien2"
 

@@ -11,13 +11,45 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130727022859) do
+ActiveRecord::Schema.define(:version => 20130806023634) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
     t.string   "address"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "hasil2s", :force => true do |t|
+    t.integer  "hsl_echantillon"
+    t.string   "hsl_item"
+    t.float    "hsl_result"
+    t.float    "hsl_batas_bawah"
+    t.float    "hsl_batas_atas"
+    t.integer  "hsl_posisi_desimal"
+    t.string   "hsl_id_pasien"
+    t.string   "hsl_lab_item_name"
+    t.string   "hsl_lab_satuan"
+    t.string   "hsl_lab_item_order"
+    t.string   "hsl_lab_nilai_normal"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  create_table "hasil3s", :force => true do |t|
+    t.integer  "hsl_echantillon"
+    t.string   "hsl_item"
+    t.float    "hsl_result"
+    t.float    "hsl_batas_bawah"
+    t.float    "hsl_batas_atas"
+    t.integer  "hsl_posisi_desimal"
+    t.string   "hsl_id_pasien"
+    t.string   "hsl_lab_item_name"
+    t.string   "hsl_lab_satuan"
+    t.string   "hsl_lab_item_order"
+    t.string   "hsl_lab_nilai_normal"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "hasils", :force => true do |t|
@@ -37,6 +69,53 @@ ActiveRecord::Schema.define(:version => 20130727022859) do
   end
 
   add_index "hasils", ["pasien_id"], :name => "index_hasils_on_pasien_id"
+
+  create_table "lab2s", :force => true do |t|
+    t.string   "lab_item_pentra"
+    t.string   "lab_item_report"
+    t.string   "lab_satuan"
+    t.float    "lab_batas_pl"
+    t.float    "lab_batas_ph"
+    t.float    "lab_batas_ll"
+    t.float    "lab_batas_lh"
+    t.string   "lab_nilai_normal"
+    t.integer  "lab_posisi_desimal"
+    t.integer  "lab_item_order"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "pasien2s", :force => true do |t|
+    t.string   "id_pasien"
+    t.string   "nama_pasien"
+    t.string   "pangkat_jabatan"
+    t.integer  "jenis_kelamin"
+    t.integer  "umur"
+    t.string   "id_sample"
+    t.date     "tanggal"
+    t.string   "ruangan"
+    t.string   "pemeriksa"
+    t.text     "komentar"
+    t.integer  "id_echantillon"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  create_table "pasien3s", :force => true do |t|
+    t.string   "id_pasien"
+    t.string   "nama_pasien"
+    t.string   "pangkat_jabatan"
+    t.integer  "jenis_kelamin"
+    t.integer  "umur"
+    t.string   "id_sample"
+    t.date     "tanggal"
+    t.string   "ruangan"
+    t.string   "pemeriksa"
+    t.text     "komentar"
+    t.integer  "id_echantillon"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
 
   create_table "pasiens", :force => true do |t|
     t.string   "id_pasien"

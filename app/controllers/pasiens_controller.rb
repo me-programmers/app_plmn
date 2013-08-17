@@ -1,13 +1,12 @@
 class PasiensController < ApplicationController
   # GET /pasiens
-  # GET /pasiens.json
-  
+  # GET /pasiens.json  
   def index    
     if params[:search]
-      @pasiens = Pasien.search(params[:search]).order("created_at DESC")
+      @pasien2s = Pasien2.search(params[:search]).order("created_at DESC")
     else
-      #@pasiens = Pasien.where("tanggal = '#{Date.today}'").order("created_at DESC")
-      @pasiens = Pasien.all
+      #@pasiens = Pasien2.where("tanggal = '#{Date.today}'").order("created_at DESC")
+      @pasien2s = Pasien2.all
     end
     
     respond_to do |format|
