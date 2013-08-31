@@ -1,4 +1,4 @@
-<h3>Home</h3>
-<% @users.each do |user| %>
-  <p>User: <%=link_to user.name, user %></p>
+<h3>Home for <%if user_signed_in? %><%= current_user.name %><% else %>Guest<% end %></h3>
+<%if not user_signed_in? %>
+	<p>Silahkan <%= link_to 'Login', new_user_session_path %></p>
 <% end %>

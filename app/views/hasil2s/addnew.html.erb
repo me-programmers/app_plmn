@@ -1,0 +1,77 @@
+<h3>Tambah Item Pemeriksaan</h3>
+<% @pasien2.each do |pasien2| %>
+  <%= simple_form_for(@hasil2, :url => hasil2s_path(@hasil2, :idpasien2 => pasien2.id ))  do |f| %>
+    <%= f.error_notification %>  
+    
+      <div id="idpasien" data-url="<%= pasien2.id %>"></div>
+        <div class="form-inputs">
+          <%= f.input :hsl_echantillon, as: :string, input_html: { value: pasien2.id_echantillon.to_s }, label: 'ID Echantillon' %>
+          <%= f.input :hsl_item, collection: @lab2, label: 'Nama Item Pentra' %>
+          <%= f.input :hsl_result, label: 'Hasil Pemeriksaan' %><div id="result-info"></div>
+          <%= f.input :hsl_batas_bawah, label: 'Batas Bawah' %>
+          <%= f.input :hsl_batas_atas, label: 'Batas Atas' %>
+          <%= f.input :hsl_posisi_desimal, label: 'Posisi Desimal' %>
+          <%= f.input :hsl_id_pasien, input_html: { value: pasien2.id_pasien }, label: 'ID Pasien' %>
+          <%= f.input :hsl_lab_item_name, label: 'Nama Item Report' %>
+          <%= f.input :hsl_lab_satuan, label: 'Satuan' %>
+          <%= f.input :hsl_lab_item_order, label: 'Item Order' %>
+          <%= f.input :hsl_lab_nilai_normal, label: 'Nilai Normal' %>
+          <%= f.input :hsl_lab_harga, label: 'Harga' %>
+        </div>      
+    <div class="form-actions">
+      <%= f.button :submit, "Proses", :class => 'btn btn-primary' %>
+    </div>
+  <% end %>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    
+    $('#hasil2_hsl_item').change(function() {
+      //get txtAmt value  
+      var hsl_item = $('#hasil2_hsl_item').val(),
+          idPasien = $('#idpasien').data('url')
+          ;
+
+      $.ajax({
+          url: "/hasil2s/" + idPasien + "/addnew",
+          //url: "/hasil2s/addnew.js",
+          type: 'GET',
+          data: { itemperiksa: hsl_item },
+          dataType: 'json',
+          success: function (data) {
+            $('#hasil2_hsl_lab_satuan').val( data.labsatuan[0] );
+            $('#hasil2_hsl_batas_bawah').val( data.labbataspl[0] );
+            $('#hasil2_hsl_batas_atas').val( data.labbatasph[0] );
+            $('#hasil2_hsl_posisi_desimal').val( data.labposisidesimal[0] );
+            $('#hasil2_hsl_lab_item_order').val( data.labitemorder[0] );
+            $('#hasil2_hsl_lab_nilai_normal').val( data.labnilainormal[0] );
+            $('#hasil2_hsl_lab_harga').val( data.labharga[0] );
+            //$("#idpasien").append ( " " + data.d[0].labsatuan );
+            
+            switch(hsl_item)
+            {
+            case "HBs Ag":
+              $("#result-info").html("<div class='alert alert-success'><ul class='unstyled'>Informasi pengisian HBs Ag<li>1 : REAKTIF</li><li>2 : NON REAKTIF</li></ul></div>");
+              break;
+            case "Natrium":
+              $("#result-info").html("<p>Informasi pengisian Natrium</p>");
+              break;
+            default:
+              $("#result-info").html("<p>Normal</p>");
+            }
+       	  },
+          error: function (jqXHR, data) {         
+            $("#idpasien").append ( data );
+          }
+      });
+
+      //change txtInterest% value
+      $('#hasil2_hsl_lab_item_name').val(hsl_item);
+      //$('#hasil2_hsl_lab_satuan').val(@lab2_item_selected);
+    });
+
+  });
+</script>
+
+

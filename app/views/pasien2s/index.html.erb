@@ -1,0 +1,53 @@
+<%= form_tag pasien2s_path, :method => 'get' do %>
+    <div class="row-fluid">
+        <div class="span3"><%= text_field_tag :search, params[:search], placeholder: 'Tanggal' %></div>
+        <div class="span3"><%= text_field_tag :search_idname, params[:search_idname], placeholder: 'ID Pasien / Nama Pasien' %></div>
+        <div class="span6"><%= submit_tag "Cari", :name => "submit_search", :class=>"btn btn-info" %></div>
+    </div>
+<% end %>
+
+<h4>Daftar Pasien : <%= @pasien2s.length %> orang</h4>
+<p>
+<%= link_to 'Tambah Pasien', new_pasien2_path, class: "btn btn-primary", type: "button" %>
+</p>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>Id pasien</th>
+    <th>Nama pasien</th>
+    <th>Umur</th>
+    <th>Tanggal</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @pasien2s.each do |pasien2| %>
+  <tr>
+    <td><%= pasien2.id_pasien %></td>
+    <td><%= pasien2.nama_pasien %></td>
+    <td><%= pasien2.umur %></td>
+    <td><%= pasien2.tanggal %></td>
+    <td><%= link_to 'Show', pasien2, :class => 'btn btn-mini btn-warning' %></td>
+    <td><%= link_to 'Print', pasien2_path(pasien2.id, :format => 'pdf'), :class => 'btn btn-mini btn-warning' %></td>
+    <td><%= link_to 'Hapus', pasien2_path(pasien2, :search => params[:search]), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<script>
+    $(document).ready(function(){
+        $("#search").datepicker();
+        if($('#search').val().length < 1) {$("input[name='submit_search']").attr("disabled", true);}        
+        $('#search').bind( "change",function () {
+                if ($.trim(this.value) == "") {
+                  $("input[name='submit_search']").attr("disabled", true);
+                }
+              else {
+                    $("input[name='submit_search']").removeAttr("disabled");
+              }
+            });
+    });
+
+</script>

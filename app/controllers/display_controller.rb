@@ -159,6 +159,9 @@ class DisplayController < ApplicationController
 			require "win32ole"
 
 			#FileUtils.cp "D:/2013_Project/app_plmn/pentra400_db/asp400bd.mdb", "D:/2013_Project/app_plmn/target db"
+			FileUtils.cp "D:/2013_Project/app_plmn/source_db/asp400bd.mdb", "D:/2013_Project/app_plmn/pentra400_db"
+			#For P400@pelamonia, create error if no source found. Please make sure webclient & workstation service is starting
+			#FileUtils.cp "Z:/asp400bd.mdb", "C:/DB_from_P400"
 
 			rs = WIN32OLE.new("ADODB.recordset")
 			rs2 = WIN32OLE.new("ADODB.recordset")
@@ -223,6 +226,7 @@ class DisplayController < ApplicationController
 					    :hsl_lab_satuan => "#{idx2[2]}",
 					    :hsl_lab_item_order => Lab2.where( :lab_item_pentra => idx2[0] ).pluck( :lab_item_order ).first,
 					    :hsl_lab_nilai_normal => Lab2.where( :lab_item_pentra => idx2[0] ).pluck( :lab_nilai_normal ).first,
+					    :hsl_lab_harga => Lab2.where( :lab_item_pentra => idx2[0] ).pluck( :lab_item_harga ).first,
 					    )
 					   ]
 						

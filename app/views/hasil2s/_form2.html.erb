@@ -1,0 +1,48 @@
+<%= simple_form_for(@hasil2, :remote => true)  do |f| %>
+  <%= f.error_notification %>
+  
+  <%= @pasien2.each do |pasien2| %>
+    <div id="idpasien" data-url="<%= pasien2.id %>"<%= pasien2.id_pasien %></div>
+      <div class="form-inputs">
+        <%= f.input :hsl_echantillon, as: :string, input_html: { value: pasien2.id_echantillon.to_s } %>
+        <%= f.input :hsl_item, collection: @lab2 %>
+        <%= f.input :hsl_result %>
+        <%= f.input :hsl_batas_bawah %>
+        <%= f.input :hsl_batas_atas %>
+        <%= f.input :hsl_posisi_desimal %>
+        <%= f.input :hsl_id_pasien, input_html: { value: pasien2.id_pasien } %>
+        <%= f.input :hsl_lab_item_name %>
+        <%= f.input :hsl_lab_satuan %>
+        <%= f.input :hsl_lab_item_order %>
+        <%= f.input :hsl_lab_nilai_normal %>
+      </div>
+    <% end %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    
+    $('#hasil2_hsl_item').change(function() {
+      //get txtAmt value  
+      var hsl_item = $('#hasil2_hsl_item').val(),
+          idPasien = $('#idpasien').data('url')
+          ;
+
+      $.ajax({
+          url: "/hasil2s/" + idPasien + "/addnew",
+          type: 'GET',
+          data: { itemperiksa: hsl_item },
+          dataType: 'script',
+          success: function() {alert('sucess')}
+      });
+
+      //change txtInterest% value
+      $('#hasil2_hsl_lab_item_name').val(hsl_item);
+      
+    });
+
+  });
+</script>

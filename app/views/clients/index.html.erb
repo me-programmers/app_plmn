@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>Name</th>
+    <th>Source</th>
     <th>Address</th>
     <th></th>
     <th></th>
@@ -12,6 +13,7 @@
 <% @clients.each do |client| %>
   <tr>
     <td><%= client.name %></td>
+    <td><%= client.source %></td>
     <td><%= client.address %></td>
     <td><%= link_to 'Show', client %></td>
     <td><%= link_to 'Edit', edit_client_path(client) %></td>

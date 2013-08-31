@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806023634) do
+ActiveRecord::Schema.define(:version => 20130824062444) do
 
   create_table "clients", :force => true do |t|
     t.string   "name"
     t.string   "address"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "source"
   end
 
   create_table "hasil2s", :force => true do |t|
@@ -34,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20130806023634) do
     t.string   "hsl_lab_nilai_normal"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "hsl_lab_harga"
   end
 
   create_table "hasil3s", :force => true do |t|
@@ -83,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20130806023634) do
     t.integer  "lab_item_order"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "lab_item_harga"
   end
 
   create_table "pasien2s", :force => true do |t|
@@ -90,7 +93,7 @@ ActiveRecord::Schema.define(:version => 20130806023634) do
     t.string   "nama_pasien"
     t.string   "pangkat_jabatan"
     t.integer  "jenis_kelamin"
-    t.integer  "umur"
+    t.string   "umur"
     t.string   "id_sample"
     t.date     "tanggal"
     t.string   "ruangan"

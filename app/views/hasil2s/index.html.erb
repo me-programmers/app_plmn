@@ -1,0 +1,43 @@
+<h1>Listing hasil2s</h1>
+
+<table>
+  <tr>
+    <th>Hsl echantillon</th>
+    <th>Hsl item</th>
+    <th>Hsl result</th>
+    <th>Hsl batas bawah</th>
+    <th>Hsl batas atas</th>
+    <th>Hsl posisi desimal</th>
+    <th>Hsl id pasien</th>
+    <th>Hsl lab item name</th>
+    <th>Hsl lab satuan</th>
+    <th>Hsl lab item order</th>
+    <th>Hsl lab nilai normal</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hasil2s.each do |hasil2| %>
+  <tr>
+    <td><%= hasil2.hsl_echantillon %></td>
+    <td><%= hasil2.hsl_item %></td>
+    <td><%= hasil2.hsl_result %></td>
+    <td><%= hasil2.hsl_batas_bawah %></td>
+    <td><%= hasil2.hsl_batas_atas %></td>
+    <td><%= hasil2.hsl_posisi_desimal %></td>
+    <td><%= hasil2.hsl_id_pasien %></td>
+    <td><%= hasil2.hsl_lab_item_name %></td>
+    <td><%= hasil2.hsl_lab_satuan %></td>
+    <td><%= hasil2.hsl_lab_item_order %></td>
+    <td><%= hasil2.hsl_lab_nilai_normal %></td>
+    <td><%= link_to 'Show', hasil2 %></td>
+    <td><%= link_to 'Edit', edit_hasil2_path(hasil2) %></td>
+    <td><%= link_to 'Destroy', hasil2, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hasil2', new_hasil2_path %>

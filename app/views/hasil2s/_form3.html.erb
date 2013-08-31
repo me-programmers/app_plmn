@@ -1,0 +1,22 @@
+<%= simple_form_for(@hasil2, :url => hasil2_path(@hasil2, :idpasien2 => params[:idpasien2]))  do |f| %>
+  <%= f.error_notification %>  
+  
+      <div class="form-inputs">
+        <%= f.input :hsl_echantillon, label: "ID Echantillon" %>
+        <%= f.input :hsl_item, label: "Nama Item Pemeriksaan" %>
+        <%= f.input :hsl_result, label: "Hasil Pemeriksaan" %>
+        <%= f.input :hsl_batas_bawah, label: "Batas Bawah" %>
+        <%= f.input :hsl_batas_atas, label: "Batas Atas" %>
+        <%= f.input :hsl_posisi_desimal, label: "Posisi Desimal" %>
+        <%= f.input :hsl_id_pasien, label: "ID Pasien" %>
+        <%= f.input :hsl_lab_item_name, label: "Nama Item Pentra" %>
+        <%= f.input :hsl_lab_satuan, label: "Satuan" %>
+        <%= f.input :hsl_lab_item_order, label: "Item Order" %>
+        <%= f.input :hsl_lab_nilai_normal, label: "Nilai Normal" %>
+        <%= f.input :hsl_lab_harga, label: "Harga" %>
+      </div>
+    
+    <div class="form-actions">
+      <%= f.button :submit, "Proses", :class => 'btn btn-primary' %>      
+    </div>
+  <% end %>

@@ -1,0 +1,21 @@
+<%= simple_form_for(@lab2) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :lab_item_pentra, label: "Nama Item Pentra" %>
+    <%= f.input :lab_item_report, label: "Nama Item Report" %>
+    <%= f.input :lab_satuan, label: "Satuan" %>
+    <%= f.input :lab_batas_pl, label: "Batas Bawah (Perempuan)" %>
+    <%= f.input :lab_batas_ph, label: "Batas Atas (Perempuan)" %>
+    <%= f.input :lab_batas_ll, label: "Batas Bawah (Laki-laki)" %>
+    <%= f.input :lab_batas_lh, label: "Batas Atas (Laki-laki)" %>
+    <%= f.input :lab_nilai_normal, label: "Nilai Normal" %>
+    <%= f.input :lab_posisi_desimal, label: "Posisi Desimal" %>
+    <%= f.input :lab_item_order, label: "Item Order" %>
+    <%= f.input :lab_item_harga, label: "Harga" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Proses", :class => 'btn btn-primary' %>
+  </div>
+<% end %>

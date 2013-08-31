@@ -1,15 +1,16 @@
 <%= link_to "App Plmn", root_path, :class => 'brand' %>
 <ul class="nav">
-  <li>
-    <%= link_to 'Import Data', display_import3_path %>
-  </li>
-  <li>
-    <%= link_to 'Daftar Pasien', pasien2s_path %>
-  </li>
-  <li>
-    <%= link_to 'Item Lab', lab2s_path %>
-  </li>
+  
   <% if user_signed_in? %>
+    <li>
+      <%= link_to 'Import Data', display_import3_path %>
+    </li>
+    <li>
+      <%= link_to 'Daftar Pasien', pasien2s_path %>
+    </li>
+    <li>
+      <%= link_to 'Item Lab', lab2s_path %>
+    </li>  
     <li>
     <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
     </li>
@@ -29,7 +30,7 @@
     <% end %>
   <% else %>
     <li>
-    <%= link_to 'Sign up', new_user_registration_path %>
+    <% #link_to 'Sign up', new_user_registration_path %>
     </li>
   <% end %>
 </ul>

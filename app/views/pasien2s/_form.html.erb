@@ -1,0 +1,21 @@
+<%= simple_form_for(@pasien2) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :id_pasien, label: 'ID Pasien' %>
+    <%= f.input :nama_pasien, label: 'Nama Pasien' %>
+    <%= f.input :pangkat_jabatan, label: 'Pangkat/Jabatan' %>
+    <%= f.input :jenis_kelamin, label: 'Jenis Kelamin' %>
+    <%= f.input :umur %>
+    <%= f.input :id_sample, label: 'ID Sample' %>
+    <%= f.input :tanggal, label: 'Tanggal Periksa' %>
+    <%= f.input :ruangan %>
+    <%= f.input :pemeriksa %>
+    <%= f.input :komentar %>
+    <%= f.input :id_echantillon, label: 'ID Echantillon' %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Proses", :class => 'btn btn-primary' %>
+  </div>
+<% end %>

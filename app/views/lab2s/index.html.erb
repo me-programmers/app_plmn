@@ -1,0 +1,39 @@
+<h3>Daftar Item Lab</h3>
+<p><%= link_to 'Tambah Item Lab', new_lab2_path, class: "btn btn-primary", type: "button" %></p>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>Item Pentra</th>
+    <th>Item Report</th>
+    <th>Satuan</th>
+    <th>Batas Bawah (P)</th>
+    <th>Batas Atas (P)</th>
+    <th>Batas Bawah (L)</th>
+    <th>Batas Atas (L)</th>
+    <th>Nilai Normal</th>
+    <th>Posisi Desimal</th>
+    <th>Item Order</th>
+    <th>Harga</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @lab2s.each do |lab2| %>
+  <tr>
+    <td><%= lab2.lab_item_pentra %></td>
+    <td><%= lab2.lab_item_report %></td>
+    <td><%= lab2.lab_satuan %></td>
+    <td><%= number_with_precision(lab2.lab_batas_pl, precision: lab2.lab_posisi_desimal) %></td>
+    <td><%= number_with_precision(lab2.lab_batas_ph, precision: lab2.lab_posisi_desimal) %></td>
+    <td><%= number_with_precision(lab2.lab_batas_ll, precision: lab2.lab_posisi_desimal) %></td>
+    <td><%= number_with_precision(lab2.lab_batas_lh, precision: lab2.lab_posisi_desimal) %></td>
+    <td><%= lab2.lab_nilai_normal %></td>
+    <td><%= lab2.lab_posisi_desimal %></td>
+    <td><%= lab2.lab_item_order %></td>
+    <td><%= lab2.lab_item_harga %></td>
+    <td><%= link_to 'Edit', edit_lab2_path(lab2), class: "btn btn-mini btn-warning" %></td>
+    <td><%= link_to 'Hapus', lab2, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-mini btn-danger' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

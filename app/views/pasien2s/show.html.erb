@@ -1,0 +1,79 @@
+<p>
+<%= link_to 'Tambah Hasil Pemeriksaan', addnew_hasil2_path(@pasien2), class: "btn btn-primary", type: "button" %>&nbsp;<%= link_to 'Print Hasil', pasien2_path(@pasien2.id, :format => 'pdf'), class: "btn btn-primary", type: "button" %>&nbsp;<%= link_to 'Print Nota', shownota_pasien2_path(@pasien2.id, :format => 'pdf'), class: "btn btn-primary", type: "button" %>
+</p>
+
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <td><b>Rekam Medik:</b></td>
+    <td><%= @pasien2.id_pasien %></td>
+    <td><b>Pangkat jabatan:</b></td>
+    <td><%= @pasien2.pangkat_jabatan %></td>
+  </tr>
+  <tr>
+    <td><b>Nama pasien:</b></td>
+    <td><%= @pasien2.nama_pasien %></td>
+    <td><b>Jenis kelamin:</b></td>
+    <td><% case @pasien2.jenis_kelamin 
+             when 1 %>Perempuan
+        <%   when 2 %>Laki-laki
+        <%   when 3 %>Bayi
+        <% end %></td>
+  </tr>
+  <tr>
+    <td><b>Umur:</b></td>
+    <td><%= @pasien2.umur %>&nbsp;<a data-toggle="modal" href="#role-options-<%= @pasien2.id_pasien %>" class="btn btn-mini btn-warning" type="button">Edit Umur</a><%= render 'umur' %></td>
+    <td><b>Id echantillon:</b></td>
+    <td><%= @pasien2.id_echantillon %></td>
+  </tr>
+  <tr>
+    <td><b>Id Sample:</b></td>
+    <td><%= @pasien2.id_sample %></td>
+    <td><b>Dokter:</b></td>
+    <td><%= @pasien2.pemeriksa %></td>
+  </tr>
+  <tr>
+    <td><b>Tanggal:</b></td>
+    <td><%= @pasien2.tanggal %></td>
+    <td><b>Komentar:</b></td>
+    <td><%= @pasien2.komentar %></td>
+  </tr>
+  <tr>
+    <td><b>Ruangan:</b></td>
+    <td><%= @pasien2.ruangan %></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+<h4>Hasil Pemeriksaan</h4>
+<table class="table table-bordered table-striped table-hover">
+  <tr>
+    <th>Hsl pentra</th>
+    <th>Hsl item</th>
+    <th>Hsl result</th>
+    <th>Hsl batas bawah</th>
+    <th>Hsl batas atas</th>
+    <th>Hsl posisi desimal</th>
+    <th>Hsl lab satuan</th>
+    <th>Hsl lab item order</th>
+    <th>Hsl lab nilai normal</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hasil2.each do |hasil2| %>
+  <tr>
+    <td><%= hasil2.hsl_item %></td>
+    <td><%= hasil2.hsl_lab_item_name %></td>
+    <td><%= number_with_precision(hasil2.hsl_result, precision: hasil2.hsl_posisi_desimal) %></td>
+    <td><%= hasil2.hsl_batas_bawah %></td>
+    <td><%= hasil2.hsl_batas_atas %></td>
+    <td><%= hasil2.hsl_posisi_desimal %></td>
+    <td><%= hasil2.hsl_lab_satuan %></td>
+    <td><%= hasil2.hsl_lab_item_order %></td>
+    <td><%= hasil2.hsl_lab_nilai_normal %></td>
+    <td><%= link_to 'Edit', edit_hasil2_path( hasil2, :idpasien2 => @pasien2.id ), :class => "btn btn-mini btn-warning" %></td>
+    <td><%= link_to 'Hapus', hasil2_path(hasil2, :idpasien2 => @pasien2.id ), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+  </tr>
+<% end %>
+</table>

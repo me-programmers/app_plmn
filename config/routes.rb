@@ -16,8 +16,12 @@ AppPlmn::Application.routes.draw do
   end
 
 
-  resources :pasien2s 
-
+  resources :pasien2s do
+    member do
+      get "shownota"
+    end
+  end
+  
   resources :widgets, only: [:index]
   
   resources :pasiens do
