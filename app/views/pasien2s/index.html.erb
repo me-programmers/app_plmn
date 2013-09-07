@@ -24,7 +24,7 @@
 <% @pasien2s.each do |pasien2| %>
   <tr>
     <td><%= pasien2.id_pasien %></td>
-    <td><%= pasien2.nama_pasien %></td>
+    <td><b><%= pasien2.nama_pasien %></b></td>
     <td><%= pasien2.umur %></td>
     <td><%= pasien2.tanggal %></td>
     <td><%= link_to 'Show', pasien2, :class => 'btn btn-mini btn-warning' %></td>

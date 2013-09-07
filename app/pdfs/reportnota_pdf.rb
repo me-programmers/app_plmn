@@ -4,7 +4,7 @@ class ReportnotaPdf < Prawn::Document
   def initialize(pasien, currentuser)
     super()
     @pasien = pasien
-    @hasil = Hasil2.where( "hsl_echantillon = #{@pasien.id_echantillon}")
+    @hasil = Hasil2.where( "hsl_echantillon = #{@pasien.id_echantillon}").order("hsl_lab_item_order")
     @current_user = currentuser
     #font "Times-Roman", :style => :bold
     #font_size 18
@@ -31,7 +31,13 @@ class ReportnotaPdf < Prawn::Document
     draw_text ": #{@pasien.pangkat_jabatan}", :at => [360, 660]
 
     draw_text "Jenis Kelamin", :at => [260, 640]
-    draw_text ": #{@pasien.jenis_kelamin = 1? 'Perempuan' : 'Laki-laki' }", :at => [360, 640]
+    draw_text ": #{case @pasien.jenis_kelamin 
+                    when 1
+                        'Perempuan' 
+                    when 2
+                        'Laki-laki' 
+                    end
+                    }", :at => [360, 640]
     
     draw_text "Umur", :at => [450, 640]
     draw_text ": #{@pasien.umur}", :at => [485, 640]
@@ -57,7 +63,7 @@ class ReportnotaPdf < Prawn::Document
     
     total = []
 
-    move_down 205
+    move_down 215
     @hasil.each do |hasil|
   		indent(130) do
             table([ ["#{hasil.hsl_lab_item_name}", "#{number_with_delimiter(hasil.hsl_lab_harga)}"] ] , :column_widths => [175, 75] )
@@ -82,31 +88,31 @@ class ReportnotaPdf < Prawn::Document
 
     bounding_box([bounds.left, bounds.bottom+100], :width => 130, :height => 90) do
         move_down 0
-        text "   Mengetahui,", :inline_format => true
+        text "Mengetahui,", :inline_format => true, :align => :center
         move_down 0
-        text "Ka. LABORATORIUM", :inline_format => true
+        text "Ka. LABORATORIUM", :inline_format => true, :align => :center
         move_down 37
-        text "<u>Drs. H. Purnomo</u>", :inline_format => true
+        text "<u>Drs. H. Purnomo</u>", :inline_format => true, :align => :center
         move_down 0
-        text "LetKol CKM NRP. 31826", :inline_format => true
+        text "LetKol CKM NRP. 31826", :inline_format => true, :align => :center
         transparent(0) { stroke_bounds }
     end 
     
-    bounding_box([bounds.left + 230, bounds.bottom+100], :width => 130, :height => 90) do
+    bounding_box([bounds.left + 200, bounds.bottom+100], :width => 150, :height => 90) do
         move_down 13
-        text "Pemeriksa", :inline_format => true
+        text "Pemeriksa", :inline_format => true, :align => :center
         move_down 37
-        text "<u>#{@current_user}</u>", :inline_format => true
+        text "#{@current_user}", :inline_format => true, :align => :center
         transparent(0) { stroke_bounds }
     end 
 
     bounding_box([bounds.right - 130, bounds.bottom+100], :width => 130, :height => 90) do
         move_down 13
-        text "Penanggung Jawab", :inline_format => true
+        text "Penanggung Jawab", :inline_format => true, :align => :center
         move_down 37
-        text "<u>dr. Suci Aprianti, Sp.PK</u>", :inline_format => true
+        text "<u>dr. Suci Aprianti, Sp.PK</u>", :inline_format => true, :align => :center
         move_down 0
-        text "NIP. 140 350 395", :inline_format => true
+        text "NIP. 140 350 395", :inline_format => true, :align => :center
         transparent(0) { stroke_bounds }
     end 
 

@@ -1,4 +1,14 @@
 class DisplayController < ApplicationController
+	rescue_from Exception, :with => :error_render_method
+
+  	def error_render_method
+	    respond_to do |type|
+	      type.html { render :template => "errors/404", :status => 404 }
+	      type.all  { render :nothing => true, :status => 404 }
+	    end
+	    true
+	end
+
 	def satu		
 		require "win32ole"
 
@@ -159,9 +169,12 @@ class DisplayController < ApplicationController
 			require "win32ole"
 
 			#FileUtils.cp "D:/2013_Project/app_plmn/pentra400_db/asp400bd.mdb", "D:/2013_Project/app_plmn/target db"
-			FileUtils.cp "D:/2013_Project/app_plmn/source_db/asp400bd.mdb", "D:/2013_Project/app_plmn/pentra400_db"
+			#For local
+			#FileUtils.cp "D:/2013_Project/app_plmn/source_db/asp400bd.mdb", "D:/2013_Project/app_plmn/pentra400_db"
 			#For P400@pelamonia, create error if no source found. Please make sure webclient & workstation service is starting
-			#FileUtils.cp "Z:/asp400bd.mdb", "C:/DB_from_P400"
+			#ifExist = File.exist?("Z:/asp400bd.mdb") || not_found
+			FileUtils.cp "Z:/asp400bd.mdb", "C:/DB_from_P400"			
+			#FileUtils.cp "D:/2013_Project/app_plmn/source_db/asp400bd.mdb", "D:/2013_Project/app_plmn/pentra400_db"		
 
 			rs = WIN32OLE.new("ADODB.recordset")
 			rs2 = WIN32OLE.new("ADODB.recordset")
@@ -239,8 +252,6 @@ class DisplayController < ApplicationController
 
 	    else
 	    	@pasien_in_db = Pasien2.where("tanggal = '#{Date.today}'").order("created_at DESC")
-
-
 		end
 
 	end

@@ -4,7 +4,7 @@ class ReportPdf < Prawn::Document
   def initialize(pasien, currentuser)
     super()
     @pasien = pasien
-    @hasil = Hasil2.where( "hsl_echantillon = #{@pasien.id_echantillon}")
+    @hasil = Hasil2.where( "hsl_echantillon = #{@pasien.id_echantillon}").order("hsl_lab_item_order")
     @current_user = currentuser
     #font "Times-Roman", :style => :bold
     #font_size 18
@@ -31,7 +31,13 @@ class ReportPdf < Prawn::Document
     draw_text ": #{@pasien.pangkat_jabatan}", :at => [360, 660]
 
     draw_text "Jenis Kelamin", :at => [260, 640]
-    draw_text ": #{@pasien.jenis_kelamin = 1? 'Perempuan' : 'Laki-laki' }", :at => [360, 640]
+    draw_text ": #{case @pasien.jenis_kelamin 
+                    when 1
+                        'Perempuan' 
+                    when 2
+                        'Laki-laki' 
+                    end
+                    }", :at => [360, 640]
     
     draw_text "Umur", :at => [450, 640]
     draw_text ": #{@pasien.umur}", :at => [485, 640]
@@ -53,7 +59,7 @@ class ReportPdf < Prawn::Document
 
     draw_text "PEMERIKSAAN", :at => [40, 540]
     draw_text "HASIL", :at => [195, 540]
-    draw_text "SATUAN", :at => [265, 540]
+    draw_text "SATUAN", :at => [275, 540]
     draw_text "NILAI NORMAL", :at => [355, 540]
     draw_text "HISTORY", :at => [475, 540]
 
@@ -63,13 +69,63 @@ class ReportPdf < Prawn::Document
                 "#{hasil.hsl_lab_item_name}", 
                 "#{
                     case hasil.hsl_lab_item_name
-                        when 'HBs Ag'
+                        when 'HBs Ag', 'A-HBs Rapid', 'VDRL', 'Ig G Anti Dengue', 'Ig M Anti Dengue', 'ANTI - HIV', 'Anti - HBs', 'Anti - HCV', 'HBsAg (Rapid)'
                             case hasil.hsl_result
                             when 1
-                                'REAKTIF'
-                            when 2
                                 'NON REAKTIF'
+                            when 2
+                                'REAKTIF'
                             end
+                        when 'Stimulan', 'Barbiturat', 'Tes Kehamilan', 'Amphetamine', 'BZO', 'COCO', 'MET', 'MOP', 'THC', 'OPIAT'
+                            case hasil.hsl_result
+                            when 1
+                                'NEGATIF'
+                            when 2
+                                'POSITIF'
+                            end
+                        when 'Keton', 'Reduksi', 'Protein'
+                            case hasil.hsl_result
+                            when 1
+                                'NEGATIF'
+                            when 2
+                                '+'
+                            when 3
+                                '++'
+                            when 4
+                                '+++'
+                            when 5
+                                '++++'
+                            end
+                        when 'S. TYPHI O', 'S. TYPHI H', 'S. PARA TYPHI AO', 'S. PARA TYPHI BO', 'S. PARA TYPHI CO', 'S. PARA TYPHI AH', 'S. PARA TYPHI BH', 'S. PARA TYPHI CH'
+                            case hasil.hsl_result
+                            when 1
+                                'NON REAKTIF'
+                            when 2
+                                '1/40'
+                            when 3
+                                '1/80'
+                            when 4
+                                '1/160'
+                            when 5
+                                '1/320'
+                            when 6
+                                '1/640'
+                            end
+                        when 'HBs Ag (ULTRA)'
+                            case 
+                            when hasil.hsl_result < 0.13
+                                hasil.hsl_result.to_s + ' (NON REAKTIF)'
+                            else
+                                hasil.hsl_result.to_s + ' (REAKTIF)'
+                            end
+                        when 'Bleeding Time (BT)'
+                            a = hasil.hsl_result.to_s.split(".")
+                            case a[1].to_i
+                            when 3
+                                a[1]=30
+                            end
+                            a[0] + " mnt " + a[1].to_s + " dtk"                           
+
                         else
                             number_with_precision(hasil.hsl_result, precision: hasil.hsl_posisi_desimal)
                         end
@@ -77,10 +133,17 @@ class ReportPdf < Prawn::Document
                 "#{hasil.hsl_lab_satuan}", 
                 "#{hasil.hsl_lab_nilai_normal}", 
                 "0"
-                ] ] , :column_widths => [175, 75, 75, 140, 75] ) do
+                ] ] , :column_widths => [170, 105, 50, 140, 75] ) do
                 
             case hasil.hsl_lab_item_name
-            when 'HBs Ag'
+            when 'S. TYPHI O', 'S. TYPHI H', 'S. PARA TYPHI AO', 'S. PARA TYPHI BO', 'S. PARA TYPHI CO', 'S. PARA TYPHI AH', 'S. PARA TYPHI BH', 'S. PARA TYPHI CH'
+                #result = cells.column(1).rows(0)
+                #case result
+                #when 'NON REAKTIF'
+                #else
+                #    result.background_color = "FFAAAA"    
+                #end
+                
                 
             else
                 result = cells.column(1).rows(0)
@@ -100,31 +163,31 @@ class ReportPdf < Prawn::Document
 
     bounding_box([bounds.left, bounds.bottom+100], :width => 130, :height => 90) do
         move_down 0
-        text "   Mengetahui,", :inline_format => true
+        text "Mengetahui,", :inline_format => true, :align => :center
         move_down 0
-        text "Ka. LABORATORIUM", :inline_format => true
+        text "Ka. LABORATORIUM", :inline_format => true, :align => :center
         move_down 37
-        text "<u>Drs. H. Purnomo</u>", :inline_format => true
+        text "<u>Drs. H. Purnomo</u>", :inline_format => true, :align => :center
         move_down 0
-        text "LetKol CKM NRP. 31826", :inline_format => true
+        text "LetKol CKM NRP. 31826", :inline_format => true, :align => :center
         transparent(0) { stroke_bounds }
     end 
     
-    bounding_box([bounds.left + 230, bounds.bottom+100], :width => 130, :height => 90) do
+    bounding_box([bounds.left + 200, bounds.bottom+100], :width => 150, :height => 90) do
         move_down 13
-        text "Pemeriksa", :inline_format => true
+        text "Pemeriksa", :inline_format => true, :align => :center
         move_down 37
-        text "<u>#{@current_user}</u>", :inline_format => true
+        text "#{@current_user}", :inline_format => true, :align => :center
         transparent(0) { stroke_bounds }
     end 
 
     bounding_box([bounds.right - 130, bounds.bottom+100], :width => 130, :height => 90) do
         move_down 13
-        text "Penanggung Jawab", :inline_format => true
+        text "Penanggung Jawab", :inline_format => true, :align => :center
         move_down 37
-        text "<u>dr. Suci Aprianti, Sp.PK</u>", :inline_format => true
+        text "<u>dr. Suci Aprianti, Sp.PK</u>", :inline_format => true, :align => :center
         move_down 0
-        text "NIP. 140 350 395", :inline_format => true
+        text "NIP. 140 350 395", :inline_format => true, :align => :center
         transparent(0) { stroke_bounds }
     end 
 

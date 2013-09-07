@@ -20,7 +20,7 @@ class Pasien2 < ActiveRecord::Base
 
   def self.searchtglidname(t, s)
     if t.present? && s.present?
-      where('(id_pasien LIKE ? OR nama_pasien LIKE ?) AND tanggal = ?', "%#{s}%", "%#{s}%", "%#{t}%")
+      where('id_pasien LIKE ? OR nama_pasien LIKE ?', "%#{s}%", "%#{s}%")
     else
       scoped
     end

@@ -92,8 +92,14 @@ class Hasil2sController < ApplicationController
       #@lab2_item_selected = Lab2.where( :lab_item_report => params[:itemperiksa] ) #.pluck( :lab_satuan )          
       # using js
       @lab2_lab_satuan = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_satuan )
-      @lab2_batas_bawah = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_batas_pl )
-      @lab2_batas_atas = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_batas_ph )
+      case params[:jenisk]
+      when 1
+        @lab2_batas_bawah = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_batas_pl )
+        @lab2_batas_atas = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_batas_ph )
+      else
+        @lab2_batas_bawah = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_batas_ll )
+        @lab2_batas_atas = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_batas_lh )
+      end      
       @lab2_posisi_desimal = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_posisi_desimal )
       @lab2_lab_item_order = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_item_order )
       @lab2_lab_nilai_normal = Lab2.where( :lab_item_report => params[:itemperiksa] ).pluck( :lab_nilai_normal )

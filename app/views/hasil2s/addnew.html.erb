@@ -52,13 +52,46 @@
             switch(hsl_item)
             {
             case "HBs Ag":
-              $("#result-info").html("<div class='alert alert-success'><ul class='unstyled'>Informasi pengisian HBs Ag<li>1 : REAKTIF</li><li>2 : NON REAKTIF</li></ul></div>");
+            case "A-HBs Rapid":
+            case "VDRL":
+            case "Ig G Anti Dengue":
+            case "Ig M Anti Dengue":
+            case "ANTI - HIV":
+            case "Anti - HBs":
+            case "Anti - HCV":
+            case "HBsAg (Rapid)":
+              $("#result-info").html("<div class='alert alert-success'><ul class='unstyled'>Informasi pengisian<li>1 : NON REAKTIF</li><li>2 : REAKTIF</li></ul></div>");
               break;
-            case "Natrium":
-              $("#result-info").html("<p>Informasi pengisian Natrium</p>");
+            case "Stimulan":
+            case "Barbiturat":
+            case "Tes Kehamilan":
+            case "Amphetamine":
+            case "BZO":
+            case "COCO":
+            case "MET":
+            case "MOP":
+            case "THC":
+            case "OPIAT":
+            case "DDR (Malaria) Slide":
+              $("#result-info").html("<div class='alert alert-success'><ul class='unstyled'>Informasi pengisian<li>1 : NEGATIF</li><li>2 : POSITIF</li></ul></div>");
               break;
+            case "S. TYPHI O":
+            case "S. TYPHI H":
+            case "S. PARA TYPHI AO":
+            case "S. PARA TYPHI BO":
+            case "S. PARA TYPHI CO":
+            case "S. PARA TYPHI AH":
+            case "S. PARA TYPHI BH":
+            case "S. PARA TYPHI CH":
+              $("#result-info").html("<div class='alert alert-success'><ul class='unstyled'>Informasi pengisian<li>1 : NON REAKTIF</li><li>2 : 1/40</li><li>3 : 1/80</li><li>4 : 1/160</li><li>5 : 1/320</li><li>6 : 1/640</li></ul></div>");
+              break;
+            case "Keton":
+            case "Reduksi":
+            case "Protein":
+              $("#result-info").html("<div class='alert alert-success'><ul class='unstyled'>Informasi pengisian<li>1 : NEGATIF</li><li>2 : +</li><li>3 : ++</li><li>4 : +++</li><li>5 : ++++</li></ul></div>");
+              break;                        
             default:
-              $("#result-info").html("<p>Normal</p>");
+              $("#result-info").html("<p>Isi dengan angka</p>");
             }
        	  },
           error: function (jqXHR, data) {         

@@ -1,5 +1,5 @@
 <p>
-<%= link_to 'Tambah Hasil Pemeriksaan', addnew_hasil2_path(@pasien2), class: "btn btn-primary", type: "button" %>&nbsp;<%= link_to 'Print Hasil', pasien2_path(@pasien2.id, :format => 'pdf'), class: "btn btn-primary", type: "button" %>&nbsp;<%= link_to 'Print Nota', shownota_pasien2_path(@pasien2.id, :format => 'pdf'), class: "btn btn-primary", type: "button" %>
+<%= link_to 'Tambah Hasil Pemeriksaan', addnew_hasil2_path(@pasien2, :jenisk => @pasien2.jenis_kelamin), class: "btn btn-primary", type: "button" %>&nbsp;<%= link_to 'Print Hasil', pasien2_path(@pasien2.id, :format => 'pdf'), class: "btn btn-primary", type: "button" %>&nbsp;<%= link_to 'Print Nota', shownota_pasien2_path(@pasien2.id, :format => 'pdf'), class: "btn btn-primary", type: "button" %>
 </p>
 
 <table class="table table-bordered table-striped table-hover">
